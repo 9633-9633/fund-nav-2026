@@ -21,7 +21,7 @@ const FUNDS = [
     { group: 10, groupName: '404 Not Found', code: '159605', name: '中概互联ETF' }
 ];
 
-const BASE_DATE = '2026-04-01';
+const BASE_DATE = '2026-04-20';
 
 /**
  * 获取基金历史净值
