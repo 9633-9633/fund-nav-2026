@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>投资学大作业（2026）</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background-color: #000000;
+            color: #eef2f6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 24px;
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 4px;
+        }
+        .header h1 {
+            font-size: 24px;
+            font-weight: 500;
+            color: #eef2f6;
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+        }
+        .date-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+        .date-label { color: #888888; }
+        .date-value { font-weight: 600; }
+        .date-value.cutoff { color: #ff9500; }
+        .date-value.query { color: #00d4ff; }
+        .date-sep { color: #444444; }
+
+        /* Table Container */
+        .table-container {
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .table-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: #eef2f6;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #333;
+        }
+
+        /* Table */
+        table { width: 100%; border-collapse: collapse; }
+        thead { background-color: #333333; }
+        th {
+            padding: 14px 10px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 700;
+            color: #eef2f6;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid #555555;
+        }
+        td {
+            padding: 14px 10px;
+            font-size: 13px;
+            text-align: center;
+            border-bottom: 1px solid #262626;
+            color: #eef2f6;
+        }
+        tbody tr:hover { background-color: #262626; }
+
+        /* Cell Styles */
+        .group-cell { font-weight: 400; color: #ff9500; font-size: 13px; }
+        .group-name { font-weight: 500; color: #eef2f6; }
+        .fund-name { color: #eef2f6; }
+        .fund-code { color: #eef2f6; font-size: 13px; }
+        .nav-value { font-family: 'SF Mono', 'Consolas', monospace; color: #eef2f6; }
+
+        /* Growth Colors - 中国习惯：红涨绿跌 */
+        .growth-positive { color: #ff3b30; font-weight: 600; }
+        .growth-negative { color: #34c759; font-weight: 600; }
+
+        .growth-bar-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .growth-bar {
+            position: relative;
+            width: 60px;
+            height: 6px;
+            background-color: #333;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .growth-bar-fill {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            border-radius: 3px;
+        }
+        .growth-bar-fill.positive { left: 0; background: #ff3b30; }
+        .growth-bar-fill.negative { right: 0; background: #34c759; }
+        .growth-value { min-width: 65px; text-align: left; }
+
+        /* Rank Badge */
+        .rank-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 12px;
+        }
+        .rank-badge.top { background-color: #ff3b30; color: #eef2f6; }
+        .rank-badge.bottom { background-color: #34c759; color: #eef2f6; }
+
+        /* Status Bar */
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #888888;
+        }
+
+        /* Bloomberg Green Accent */
+        .bloomberg-accent { color: #ff9500; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body { padding: 12px; }
+            .header h1 { font-size: 20px; }
+            table { font-size: 12px; }
+            td, th { padding: 10px 6px; }
+            .date-info { flex-wrap: wrap; gap: 4px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>投资学大作业（2026）—各组基金净值（NAV）增长率</h1>
+            <div class="date-info">
+                <span class="date-label">最新净值发布日期：</span><span class="date-value cutoff">2026.04.17</span>
+                <span class="date-sep">|</span>
+                <span class="date-label">数据查询日期：</span><span class="date-value query">2026.04.20</span>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <div class="table-title">各组基金净值变化及增长率排名</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>小组编号</th>
+                        <th>小组名称</th>
+                        <th>基金名称</th>
+                        <th>基金代码</th>
+                        <th>基期净值（2026.04.01）</th>
+                        <th>最新净值（2026.04.17）</th>
+                        <th>净值增长率</th>
+                        <th>业绩排名</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    <tr>
+                        <td class="group-cell">1</td>
+                        <td class="group-name">Big Mac</td>
+                        <td class="fund-name">科创50ETF</td>
+                        <td class="fund-code">588000</td>
+                        <td class="nav-value">1.3676</td>
+                        <td class="nav-value">1.4997</td>
+                        <td>
+                            <div class="growth-bar-container">
+                                <div class="growth-bar">
+                                    <div class="growth-bar-fill positive" style="width: 69.39655172413794%"></div>
+                                </div>
+                                <span class="growth-value growth-positive">
+                                    +9.66%
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="rank-badge top">3</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="group-cell">2</td>
+                        <td class="group-name">Jet2 Holiday</td>
+                        <td class="fund-name">创业板ETF</td>
+                        <td class="fund-code">159915</td>
+                        <td class="nav-value">3.2393</td>
+                        <td class="nav-value">3.6715</td>
+                        <td>
+                            <div class="growth-bar-container">
+                                <div class="growth-bar">
+                                    <div class="growth-bar-fill positive" style="width: 95.83333333333334%"></div>
+                                </div>
+                                <span class="growth-value growth-positive">
+                                    +13.34%
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="rank-badge top">2</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="group-cell">3</td>
+                        <td class="group-name">TACO</td>
+                        <td class="fund-name">沪深300ETF</td>
+                        <td class="fund-code">510300</td>
+                        <td class="nav-value">4.5355</td>
+                        <td class="nav-value">4.7393</td>
+                        <td>
+                            <div class="growth-bar-container">
+                                <div class="growth-bar">
+                                    <div class="growth-bar-fill positive" style="width: 32.25574712643679%"></div>
+                                </div>
+                                <span class="growth-value growth-positive">
+                                    +4.49%
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="rank-badge bottom">8</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="group-cell">4</td>
+                        <td class="group-name">Apocalypse</td>
+                        <td class="fund-name">科技ETF</td>
+                        <td class="fund-code">515000</td>
+                        <td class="nav-value">0.9908</td>
+                        <td class="nav-value">1.1287</td>
+                        <td>
+                            <div class="growth-bar-container">
+                                <div class="growth-bar">
+                                    <div class="growth-bar-fill positive" style="width: 100%"></div>
+                                </div>
+                                <span class="growth-value growth-positive">
+                                    +13.92%
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="rank-badge top">1</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="group-cell">5</td>
+                        <td class="group-name">The Port Authority</td>
+                        <td class="fund-name">中证1000ETF</td>
+                        <td class="fund-code">512100</td>
+                        <td class="nav-value">3.1090</td>
+                        <td class="nav-value">3.3287</td>
+                        <td>
+                            <div class="growth-bar-container">
+                                <div class="growth-bar">
+                                    <div class="growth-bar-fill positive" style="width: 50.79022988505747%"></div>
+                                </div>
+                                <span class="growth-value growth-positive">
+                                    +7.07%
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="rank-badge bottom">5</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="group-cell">6</td>
+                        <td class="group-name">Pro</td>
+                        <td class="fund-name">纳指ETF</td>
+                        <td class="fund-code">159941</td>
+                        <td class="nav-value">1.2443</td>
+                        <td class="nav-value">1.3553</td>
+                        <td>
+                            <div class="growth-bar-container">
+                                <div class="growth-bar">
+                                    <div class="growth-bar-fill positive" style="width: 64.08045977011494%"></div>
+                                </div>
+                                <span class="growth-value growth-positive">
+                                    +8.92%
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="rank-badge bottom">4</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="group-cell">7</td>
+                        <td class="group-name">Aespa</td>
+                        <td class="fund-name">标普500ETF</td>
+                        <td class="fund-code">513500</td>
+                        <td class="nav-value">2.1441</td>
+                        <td class="nav-value">2.2828</td>
+                        <td>
+                            <div class="growth-bar-container">
+                                <div class="growth-bar">
+                                    <div class="growth-bar-fill positive" style="width: 46.479885057471265%"></div>
+                                </div>
+                                <span class="growth-value growth-positive">
+                                    +6.47%
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="rank-badge bottom">6</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="group-cell">8</td>
+                        <td class="group-name">kskbl</td>
+                        <td class="fund-name">恒生ETF</td>
+                        <td class="fund-code">159920</td>
+                        <td class="nav-value">1.5108</td>
+                        <td class="nav-value">1.5567</td>
+                        <td>
+                            <div class="growth-bar-container">
+                                <div class="growth-bar">
+                                    <div class="growth-bar-fill positive" style="width: 21.839080459770116%"></div>
+                                </div>
+                                <span class="growth-value growth-positive">
+                                    +3.04%
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="rank-badge bottom">10</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="group-cell">9</td>
+                        <td class="group-name">The Legend of KK</td>
+                        <td class="fund-name">证券ETF</td>
+                        <td class="fund-code">512880</td>
+                        <td class="nav-value">1.0440</td>
+                        <td class="nav-value">1.0766</td>
+                        <td>
+                            <div class="growth-bar-container">
+                                <div class="growth-bar">
+                                    <div class="growth-bar-fill positive" style="width: 22.413793103448278%"></div>
+                                </div>
+                                <span class="growth-value growth-positive">
+                                    +3.12%
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="rank-badge bottom">9</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="group-cell">10</td>
+                        <td class="group-name">404 Not Found</td>
+                        <td class="fund-name">中概互联ETF</td>
+                        <td class="fund-code">159605</td>
+                        <td class="nav-value">0.8829</td>
+                        <td class="nav-value">0.9344</td>
+                        <td>
+                            <div class="growth-bar-container">
+                                <div class="growth-bar">
+                                    <div class="growth-bar-fill positive" style="width: 41.88218390804598%"></div>
+                                </div>
+                                <span class="growth-value growth-positive">
+                                    +5.83%
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="rank-badge bottom">7</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="status-bar">
+            <span>数据来源：东方财富（eastmoney.com）</span>
+        </div>
+    </div>
+</body>
+</html>
