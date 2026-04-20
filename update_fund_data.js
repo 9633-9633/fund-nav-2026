@@ -313,7 +313,7 @@ function generateHTML(fundData, baseDate, cutoffDate, queryDate) {
                         <th>小组名称</th>
                         <th>基金名称</th>
                         <th>基金代码</th>
-                        <th>基期净值 (2026.04.20)</th>
+                        <th>基期净值</th>
                         <th>最新净值</th>
                         <th>净值增长率</th>
                         <th>排名</th>
@@ -345,8 +345,16 @@ async function main() {
         try {
             console.log(`获取 ${fund.group}组 ${fund.name} (${fund.code})...`);
 
-            // 获取基期净值
-            const baseData = await getFundHistory(fund.code, BASE_DATE);
+            // 获取基期净值（优先指定日期，找不到则取最近可用数据）
+            let baseData = await getFundHistory(fund.code, BASE_DATE);
+            if (!baseData) {
+                // 尝试获取最新数据作为回退
+                const fallback = await getFundLatest(fund.code);
+                if (fallback && fallback.date <= BASE_DATE) {
+                    baseData = fallback;
+                    console.log(`  回退: 使用 ${fallback.date} 的净值作为基期`);
+                }
+            }
             if (!baseData) {
                 console.log(`  警告: 无法获取基期数据`);
                 continue;
