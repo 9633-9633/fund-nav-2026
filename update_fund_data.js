@@ -375,9 +375,13 @@ async function main() {
     // 生成HTML
     const html = generateHTML(fundData, cutoffDate, queryDate);
 
-    // 写入文件
-    const outputPath = path.join(__dirname, 'fund_nav_growth.html');
+    // 写入文件（直接写入 index.html 供 Netlify 使用）
+    const outputPath = path.join(__dirname, 'index.html');
     fs.writeFileSync(outputPath, html, 'utf8');
+
+    // 同时保留 fund_nav_growth.html 作为备份
+    const backupPath = path.join(__dirname, 'fund_nav_growth.html');
+    fs.writeFileSync(backupPath, html, 'utf8');
 
     console.log(`\n数据更新成功!`);
     console.log(`文件已保存: ${outputPath}`);
