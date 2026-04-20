@@ -79,7 +79,14 @@ function getQueryDate() {
 /**
  * 生成HTML内容
  */
-function generateHTML(fundData, cutoffDate, queryDate) {
+function generateHTML(fundData, baseDate, cutoffDate, queryDate) {
+    // 将基期日期转换为点号分隔格式
+    const baseDateDisplay = baseDate.replace(/-/g, '年').replace(/(\d{4})(\d{2})(\d{2})/, '$1年$2月$3日');
+    // 最新净值日期
+    const cutoffDateDisplay = cutoffDate;
+    // 查询日期
+    const queryDateDisplay = queryDate;
+
     // 计算增长率和排名
     const dataWithGrowth = fundData.map(f => {
         const growth = ((f.currentNav - f.baseNav) / f.baseNav) * 100;
@@ -162,11 +169,13 @@ function generateHTML(fundData, cutoffDate, queryDate) {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 8px;
+            gap: 16px;
             font-size: 14px;
+            flex-wrap: wrap;
         }
         .date-label { color: #888888; }
         .date-value { font-weight: 600; }
+        .date-value.base { color: #888888; }
         .date-value.cutoff { color: #ff9500; }
         .date-value.query { color: #00d4ff; }
         .date-sep { color: #444444; }
@@ -287,9 +296,11 @@ function generateHTML(fundData, cutoffDate, queryDate) {
         <div class="header">
             <h1>投资学大作业（2026）—各组基金净值（NAV）增长率</h1>
             <div class="date-info">
-                <span class="date-label">最新净值更新日期：</span><span class="date-value cutoff">${cutoffDate}</span>
+                <span class="date-label">即期净值日期：</span><span class="date-value base">2026年4月20日</span>
                 <span class="date-sep">|</span>
-                <span class="date-label">查询日期：</span><span class="date-value query">${queryDate}</span>
+                <span class="date-label">当前净值日期：</span><span class="date-value cutoff">${cutoffDateDisplay}</span>
+                <span class="date-sep">|</span>
+                <span class="date-label">净值查询日期：</span><span class="date-value query">${queryDateDisplay}</span>
             </div>
         </div>
 
@@ -373,7 +384,7 @@ async function main() {
     const queryDate = getQueryDate();
 
     // 生成HTML
-    const html = generateHTML(fundData, cutoffDate, queryDate);
+    const html = generateHTML(fundData, BASE_DATE, cutoffDate, queryDate);
 
     // 写入文件（直接写入 index.html 供 Netlify 使用）
     const outputPath = path.join(__dirname, 'index.html');
