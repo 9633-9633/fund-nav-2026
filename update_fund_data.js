@@ -175,7 +175,7 @@ function generateHTML(fundData, baseDate, cutoffDate, queryDate) {
         }
         .date-label { color: #888888; }
         .date-value { font-weight: 600; }
-        .date-value.base { color: #888888; }
+        .date-value.base { color: #bf5af2; }
         .date-value.cutoff { color: #ff9500; }
         .date-value.query { color: #00d4ff; }
         .date-sep { color: #444444; }
@@ -296,9 +296,9 @@ function generateHTML(fundData, baseDate, cutoffDate, queryDate) {
         <div class="header">
             <h1>投资学大作业（2026）—各组基金净值（NAV）增长率</h1>
             <div class="date-info">
-                <span class="date-label">即期净值日期：</span><span class="date-value base">2026年4月20日</span>
+                <span class="date-label">基期净值日期：</span><span class="date-value base">2026.04.20</span>
                 <span class="date-sep">|</span>
-                <span class="date-label">当前净值日期：</span><span class="date-value cutoff">${cutoffDateDisplay}</span>
+                <span class="date-label">最新净值日期：</span><span class="date-value cutoff">${cutoffDateDisplay}</span>
                 <span class="date-sep">|</span>
                 <span class="date-label">净值查询日期：</span><span class="date-value query">${queryDateDisplay}</span>
             </div>
@@ -313,8 +313,8 @@ function generateHTML(fundData, baseDate, cutoffDate, queryDate) {
                         <th>小组名称</th>
                         <th>基金名称</th>
                         <th>基金代码</th>
-                        <th>基期净值</th>
-                        <th>当前净值</th>
+                        <th>基期净值 (2026.04.20)</th>
+                        <th>最新净值</th>
                         <th>净值增长率</th>
                         <th>排名</th>
                     </tr>
