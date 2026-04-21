@@ -9,16 +9,16 @@ const path = require('path');
 
 // 基金列表
 const FUNDS = [
-    { group: 1, groupName: 'Big Mac', code: '588000', name: '科创50ETF' },
-    { group: 2, groupName: 'Jet2 Holiday', code: '159915', name: '创业板ETF' },
-    { group: 3, groupName: 'TACO', code: '510300', name: '沪深300ETF' },
-    { group: 4, groupName: 'Apocalypse', code: '515000', name: '科技ETF' },
-    { group: 5, groupName: 'The Port Authority', code: '512100', name: '中证1000ETF' },
-    { group: 6, groupName: 'Pro', code: '159941', name: '纳指ETF' },
-    { group: 7, groupName: 'Aespa', code: '513500', name: '标普500ETF' },
-    { group: 8, groupName: 'kskbl', code: '159920', name: '恒生ETF' },
-    { group: 9, groupName: 'The Legend of KK', code: '512880', name: '证券ETF' },
-    { group: 10, groupName: '404 Not Found', code: '159605', name: '中概互联ETF' }
+    { group: 1, groupName: 'Big Mac', code: '012922', name: '易方达全球成长精选混合(QDII)人民币C' },
+    { group: 2, groupName: 'Jet2 Holiday', code: '588000', name: '科创50ETF' },
+    { group: 3, groupName: 'TACO', code: '016874', name: '广发远见智选混合C' },
+    { group: 4, groupName: 'Apocalypse', code: '011369', name: '华商均衡成长混合A' },
+    { group: 5, groupName: 'The Port Authority', code: '011370', name: '华商均衡成长混合C' },
+    { group: 6, groupName: 'Pro', code: '513120', name: '港股创新药ETF广发' },
+    { group: 7, groupName: 'Aespa', code: '016873', name: '广发远见智选混合A' },
+    { group: 8, groupName: 'kskbl', code: '012920', name: '易方达全球成长精选混合(QDII)人民币A' },
+    { group: 9, groupName: 'The Legend of KK', code: '001717', name: '工银前沿医疗股票A' },
+    { group: 10, groupName: '404 Not Found', code: '011369', name: '华商均衡成长混合A' }
 ];
 
 const BASE_DATE = '2026-04-20';
