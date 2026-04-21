@@ -10,11 +10,11 @@ const path = require('path');
 // 基金列表
 const FUNDS = [
     { group: 1, groupName: 'Big Mac', code: '012922', name: '易方达全球成长精选混合(QDII)人民币C' },
-    { group: 2, groupName: 'Jet2 Holiday', code: '588000', name: '科创50ETF' },
+    { group: 2, groupName: 'Jet2 Holiday', code: '588000', name: '华夏上证科创板50ETF' },
     { group: 3, groupName: 'TACO', code: '016874', name: '广发远见智选混合C' },
     { group: 4, groupName: 'Apocalypse', code: '011369', name: '华商均衡成长混合A' },
     { group: 5, groupName: 'The Port Authority', code: '011370', name: '华商均衡成长混合C' },
-    { group: 6, groupName: 'Pro', code: '513120', name: '港股创新药ETF广发' },
+    { group: 6, groupName: 'Pro', code: '513120', name: '广发中证香港创新药ETF' },
     { group: 7, groupName: 'Aespa', code: '016873', name: '广发远见智选混合A' },
     { group: 8, groupName: 'kskbl', code: '012920', name: '易方达全球成长精选混合(QDII)人民币A' },
     { group: 9, groupName: 'The Legend of KK', code: '001717', name: '工银前沿医疗股票A' },
