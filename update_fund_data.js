@@ -19,7 +19,7 @@ const FUNDS = [
     { group: 8, groupName: 'kskbl', code: '012920', name: '易方达全球成长精选混合(QDII)人民币A' },
     { group: 9, groupName: 'The Legend of KK', code: '001717', name: '工银前沿医疗股票A' },
     { group: 10, groupName: '404 Not Found', code: '011369', name: '华商均衡成长混合A' },
-    { group: 11, groupName: 'WYQ', code: '510300', name: '沪深300ETF华泰柏瑞' }
+    { group: 11, groupName: 'WYQ', code: '510300', name: '华泰柏瑞沪深300ETF' }
 ];
 
 const BASE_DATE = '2026-04-20';
