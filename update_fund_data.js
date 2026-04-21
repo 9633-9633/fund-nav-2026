@@ -18,7 +18,7 @@ const FUNDS = [
     { group: 7, groupName: 'Aespa', code: '016873', name: '广发远见智选混合A' },
     { group: 8, groupName: 'kskbl', code: '012920', name: '易方达全球成长精选混合(QDII)人民币A' },
     { group: 9, groupName: 'The Legend of KK', code: '001717', name: '工银前沿医疗股票A' },
-    { group: 10, groupName: '404 Not Found', code: '515880', name: '华泰柏瑞中证全指证券公司ETF' },
+    { group: 10, groupName: '404 Not Found', code: '515880', name: '国泰中证全指通信设备ETF' },
     { group: 11, groupName: 'WYQ', code: '510300', name: '华泰柏瑞沪深300ETF' }
 ];
 
