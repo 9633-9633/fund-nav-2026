@@ -408,7 +408,7 @@ async function main() {
     console.log(`\n数据更新成功!`);
     console.log(`文件已保存: ${outputPath}`);
     console.log(`最新净值更新日期: ${cutoffDate}`);
-    console.log(`查询日期（获取日期）: ${queryDate}`);
+    console.log(`查询时间（获取时间）: ${queryDate}`);
 
     // 打印排名
     const sorted = [...fundData].sort((a, b) => {
