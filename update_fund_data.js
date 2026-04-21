@@ -66,14 +66,17 @@ function getFundLatest(code) {
 }
 
 /**
- * 获取查询日期（今天）
+ * 获取查询时间（今天，精确到秒）
  */
 function getQueryDate() {
     const now = new Date();
     const year = now.getFullYear();
     const month = String(now.getMonth() + 1).padStart(2, '0');
     const day = String(now.getDate()).padStart(2, '0');
-    return `${year}.${month}.${day}`;
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    return `${year}.${month}.${day} ${hours}:${minutes}:${seconds}`;
 }
 
 /**
@@ -300,7 +303,7 @@ function generateHTML(fundData, baseDate, cutoffDate, queryDate) {
                 <span class="date-sep">|</span>
                 <span class="date-label">最新净值日期：</span><span class="date-value cutoff">${cutoffDateDisplay}</span>
                 <span class="date-sep">|</span>
-                <span class="date-label">净值查询日期：</span><span class="date-value query">${queryDateDisplay}</span>
+                <span class="date-label">查询时间：</span><span class="date-value query">${queryDateDisplay}</span>
             </div>
         </div>
 
